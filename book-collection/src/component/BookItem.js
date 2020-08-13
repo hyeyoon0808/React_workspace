@@ -3,11 +3,12 @@ import { Item } from "semantic-ui-react";
 
 class BookItem extends Component {
   render() {
-    const { book, onSelect } = this.props;
+    const { key, book, onSelect } = this.props;
     return (
       <div>
-        <Item onClick={() => onSelect(book)}>
+        <Item id={key} onClick={() => onSelect(book)}>
           <Item.Image
+            id={key}
             size="small"
             src={book.imgUrl}
             onClick={() => onSelect(book)}

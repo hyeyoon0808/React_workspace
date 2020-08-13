@@ -2,23 +2,26 @@ import React, { useState, useRef, useCallback } from 'react';
 import TodoTemplate from './components/TodoTemplate';
 import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
-cs;
+import TodoEditFormView from './components/TodoEditFormView';
 
 const App = () => {
   const [todos, setTodos] = useState([
     {
       id: 1,
       text: '리엑트의 기초 알아보기',
+      date: '2020-06-01 09:00',
       checked: true,
     },
     {
       id: 2,
       text: '컴포넌트 스타일링해 보기',
+      date: '2020-07-02 10:00',
       checked: true,
     },
     {
       id: 3,
       text: '일정 관리 앱 만들어 보기',
+      date: '2020-07-03 11:00',
       checked: true,
     },
   ]);
@@ -28,6 +31,7 @@ const App = () => {
       const todo = {
         id: nextId.current,
         text,
+        date: 'YYYY-MM-DD HH:mm',
         checked: false,
       };
       setTodos(todos.concat(todo));
@@ -35,11 +39,28 @@ const App = () => {
     },
     [todos],
   );
+  const onToggle = useCallback(
+    (id) => {
+      setTodos(
+        todos.map((todo) =>
+          todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+        ),
+      );
+    },
+    [todos],
+  );
+  const onRemove = useCallback(
+    (id) => {
+      setTodos(todos.filter((todo) => todo.id !== id));
+    },
+    [todos],
+  );
 
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
+      <TodoEditFormView />
     </TodoTemplate>
   );
 };

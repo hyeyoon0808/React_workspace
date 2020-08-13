@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import IterationSample from "./IterationSample";
+import IterationSamepleFunction from "./IterationSampleFunction";
 
 class App extends Component {
   render() {
-    return <IterationSample />;
+    return <IterationSamepleFunction />;
   }
 }
 
